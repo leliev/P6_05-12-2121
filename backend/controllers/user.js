@@ -8,7 +8,7 @@ const User = require('../models/User');
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
-        .then(hash => {
+        .then((hash) => {
             const user = new User({
                 email: req.body.email,
                 password: hash,
@@ -27,16 +27,13 @@ exports.login = (req, res, next) => {
                 return res.status(401).json({ error: 'User not found' });
             }
             bcrypt.compare(req.body.password, user.password)
-                .then(valid => {
+                .then((valid) => {
                     if (!valid) {
                         return res.status(401).json({ error: 'Wrong password' });
                     }
                     res.status(200).json({
                         userId: user._id,
-                        token: jwt.sign(
-                            { userId: user._id },
-                            process.env.TOKEN,
-                            { expiresIn: '12h' }
+                        token: jwt.sign({ userId: user._id }, process.env.TKEY, { expiresIn: '24h' }
                         )
                     });
                 })
