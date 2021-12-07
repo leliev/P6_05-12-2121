@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const path = require('path');
 
@@ -11,6 +12,8 @@ mongoose
   .catch(() => console.log('MongoDB connection failed !'));
 
 const app = express();
+
+app.use(helmet());
 app.use(express.json());
 
 app.use((req, res, next) => {
