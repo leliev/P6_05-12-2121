@@ -70,7 +70,7 @@ exports.likeManager = (req, res, next) => {
   const like = req.body.like;
   switch (like) {
     case 1:
-      Sauce.updateOne({ _id: req.params.id }, { $push: { usersLiked: req.body.userId }, $inc: { likes: +1 }})
+      Sauce.updateOne({ _id: req.params.id }, { $addToSet: { usersLiked: req.body.userId }, $inc: { likes: +1 }})
         .then(() => res.status(200).json({ message: 'Sauce liked '}))
         .catch(error => res.status(400).json({ error }));
       break;
@@ -93,7 +93,7 @@ exports.likeManager = (req, res, next) => {
       break;
 
     case -1:
-      Sauce.updateOne({ _id: req.params.id }, { $push: { usersDisliked: req.body.userId }, $inc: { dislikes: +1 }})
+      Sauce.updateOne({ _id: req.params.id }, { $addToSet: { usersDisliked: req.body.userId }, $inc: { dislikes: +1 }})
         .then(() => res.status(200).json({ message: 'Sauce liked '}))
         .catch(error => res.status(400).json({ error }));
   }
