@@ -109,7 +109,7 @@ exports.likeManager = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
       break;
-
+    //Same as "case: 1" for dislike option
     case -1:
       Sauce.updateOne({ _id: req.params.id }, { $addToSet: { usersDisliked: req.body.userId }, $inc: { dislikes: +1 }})
         .then(() => res.status(200).json({ message: 'Sauce liked '}))
