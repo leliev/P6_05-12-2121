@@ -4,6 +4,7 @@ dotenv.config();
 const http = require('http');
 const app = require('./app');
 
+//Normalize variable into a number(port) or a string(pipe) or false
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
@@ -15,9 +16,11 @@ const normalizePort = val => {
   }
   return false;
 };
+
 const port = normalizePort(process.env.PORT);
 app.set('port', port);
 
+//Handle and log error
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;

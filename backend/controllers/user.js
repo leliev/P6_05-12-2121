@@ -1,3 +1,4 @@
+//Security required module
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -6,6 +7,12 @@ dotenv.config();
 
 const User = require('../models/User');
 
+/**
+ * Manage user sign-in
+ * Hash user password using bcrypt
+ * Add user info in database 
+ * Email set to unique 
+ */
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
@@ -20,6 +27,12 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+/**
+ * Manage user login
+ * Check for user email in DB
+ * If found compare user input password with DB password hash
+ * If compare successful sign a token with user id as payload
+ */
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {
