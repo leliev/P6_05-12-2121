@@ -1,3 +1,4 @@
+//Login limiter to mitigate brute force attack
 const rateLimit = require("express-rate-limit");
 
 const loginlimiter = rateLimit({

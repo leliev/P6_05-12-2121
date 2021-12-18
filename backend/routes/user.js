@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/user');
+//Import security middleware
 const limiter = require('../middleware/limiter');
 const validator = require('../middleware/datavalidator');
 
